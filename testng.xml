@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Google Search Tests">
+    <test name="Sanity Tests">
+        <classes>
+            <class name="cukesrunner.SanityTestRunner" />
+            <!--<class name="cukesrunner.FailedTestRunner" />-->
+        </classes>
+    </test>
+    <test name="Parallel Regression Tests" enabled="false">
+        <parameter name="parallel" value="true" />
+        <classes>
+            <class name="cukesrunner.RegressionParallelTestRunner" />
+            <class name="cukesrunner.FailedTestRunner" />
+        </classes>
+    </test>
+</suite>
