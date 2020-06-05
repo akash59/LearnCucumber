@@ -1,4 +1,4 @@
-package page_actions;
+package page_utils;
 
 import core.controller.Controller;
 import org.openqa.selenium.By;
@@ -8,13 +8,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public abstract class ActionsBase {
+public class PageActions {
 
     protected WebDriverWait wait;
     protected WebDriver driver;
     protected Controller controller;
 
-    public ActionsBase(Controller controller) {
+    public PageActions(Controller controller) {
         this.controller = controller;
         this.driver = controller.getDriver();
         this.wait = getWait(5000);
@@ -36,9 +36,8 @@ public abstract class ActionsBase {
         driver.findElement(loc).sendKeys(text);
     }
 
-    protected void type(WebElement element, CharSequence text) {
+    public void type(WebElement element, CharSequence text) {
         waitForVisibilityOfElement(element, 2000);
-        element.clear();
         element.sendKeys(text);
     }
 
@@ -47,7 +46,7 @@ public abstract class ActionsBase {
         driver.findElement(loc).click();
     }
 
-    protected void click(WebElement element) {
+    public void click(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
@@ -82,9 +81,12 @@ public abstract class ActionsBase {
     }
 
 
+    public void clearText(WebElement searchBox) {
+        searchBox.clear();
+    }
 
-
-
-
+    public void navigateTo(String s) {
+        driver.navigate().to(s);
+    }
 
 }

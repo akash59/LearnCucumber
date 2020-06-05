@@ -33,7 +33,7 @@ public class SanityTestRunner extends AbstractTestNGCucumberTests {
     }
 
     @Override
-    @DataProvider()
+    @DataProvider(parallel = true)
     public Object[][] scenarios() {
         return super.scenarios();
     }

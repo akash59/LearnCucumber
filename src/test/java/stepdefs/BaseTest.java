@@ -15,7 +15,7 @@ import org.openqa.selenium.devtools.DevTools;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Hooks {
+public class BaseTest {
 
     private WebDriver driver;
     private int counter = 1;
@@ -24,7 +24,7 @@ public class Hooks {
     private Map<String, String> ERROR_LOGS = new HashMap<>();
     private DevTools devTools;
 
-    public Hooks(Controller controller) {
+    public BaseTest(Controller controller) {
         this.controller = controller;
     }
 
@@ -78,7 +78,7 @@ public class Hooks {
     }
 
     private void openTestApplication() {
-        driver.get(Hooks.APP_URL);
+        driver.get(BaseTest.APP_URL);
     }
 
 }
