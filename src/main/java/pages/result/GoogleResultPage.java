@@ -13,6 +13,7 @@ public class GoogleResultPage {
     private final NavigationBar navigationBar;
     private final ResultStat resultStat;
 
+    //Lombak Annotations inject constructor in the run time
    /* public GoogleResultPage (Controller controller) {
         this.searchWidget = new SearchWidget(controller);
         this.searchSuggestions = new SearchSuggestions(controller);

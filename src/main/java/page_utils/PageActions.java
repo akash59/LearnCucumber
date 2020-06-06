@@ -1,12 +1,11 @@
 package page_utils;
 
 import core.controller.Controller;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class PageActions {
 
@@ -17,14 +16,14 @@ public class PageActions {
     public PageActions(Controller controller) {
         this.controller = controller;
         this.driver = controller.getDriver();
-        this.wait = getWait(5000);
+        this.wait = getWait(30);
     }
 
     public WebDriverWait getWait(long timeOut) {
         if(null != wait) {
             return wait;
         }
-        return new WebDriverWait(driver, timeOut);
+        return new WebDriverWait(driver, Duration.ofSeconds(timeOut));
     }
 
 
@@ -32,7 +31,7 @@ public class PageActions {
         this.wait = wait;
     }
 
-    protected void type(By loc, CharSequence text) {
+    public void type(By loc, CharSequence text) {
         driver.findElement(loc).sendKeys(text);
     }
 
@@ -41,25 +40,42 @@ public class PageActions {
         element.sendKeys(text);
     }
 
-    protected void click(By loc) {
+    public void click(By loc) {
         wait.until(ExpectedConditions.elementToBeClickable(loc));
         driver.findElement(loc).click();
     }
 
     public void click(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
+        this.wait
+                .ignoring(StaleElementReferenceException.class)
+                .until(d -> ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
 
-    protected void pressEnterKey(WebElement element) {
+    public boolean retryingFindClick(By by) {
+        boolean result = false;
+        int attempts = 0;
+        while(attempts < 2) {
+            try {
+                driver.findElement(by).click();
+                result = true;
+                break;
+            } catch(StaleElementReferenceException e) {
+            }
+            attempts++;
+        }
+        return result;
+    }
+
+    public void pressEnterKey(WebElement element) {
         type(element, Keys.ENTER);
     }
 
-    protected void openPage(String url){
+    public void openPage(String url){
         driver.navigate().to(url);
     }
 
-    protected WebElement getWebElement(By loc, long timeout) {
+    public WebElement getWebElement(By loc, long timeout) {
         return getWait(timeout).until(driver -> driver.findElement(loc));
     }
 

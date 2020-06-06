@@ -12,7 +12,11 @@ import org.testng.annotations.DataProvider;
         features = "src/test/resources",
         glue = { "stepdefs", "testbase" },
         monochrome = true,
-        plugin = { "pretty", "html:target", "json:target/cucumber.json", "logging.CustomTagsFormatter:target/tags.txt", "rerun:target/rerun.txt"},
+        plugin = { "pretty",
+                "html:target",
+                "json:target/cucumber.json",
+                "logging.CustomTagsFormatter:target/tags.txt"
+        },
         tags = { "(@Sanity or @Regression)"},
         strict = true
 )

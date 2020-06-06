@@ -15,7 +15,7 @@ import org.openqa.selenium.devtools.DevTools;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaseTest {
+public class TestSetup extends BaseTest {
 
     private WebDriver driver;
     private int counter = 1;
@@ -24,13 +24,14 @@ public class BaseTest {
     private Map<String, String> ERROR_LOGS = new HashMap<>();
     private DevTools devTools;
 
-    public BaseTest(Controller controller) {
+    public TestSetup(Controller controller) {
         this.controller = controller;
     }
 
 
     @Before
     public void init(Scenario scenario) {
+        BaseTest.scenario = scenario;
         long id = Thread.currentThread().getId();
         scenario.write("Before scenario. Thread id is: " + id);
         scenario.write("launching browser...");
@@ -78,7 +79,7 @@ public class BaseTest {
     }
 
     private void openTestApplication() {
-        driver.get(BaseTest.APP_URL);
+        driver.get(TestSetup.APP_URL);
     }
 
 }

@@ -4,54 +4,47 @@ package stepdefs;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import pages.result.GoogleResultPage;
+import lombok.RequiredArgsConstructor;
+import pages.common.SearchSuggestions;
 import pages.main.GoogleMainPage;
-import testutils.TestUtilities;
+import pages.result.GoogleResultPage;
 
-import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class GoogleSearchSteps extends TestUtilities
+@RequiredArgsConstructor
+public class GoogleSearchSteps extends BaseTest
 {
 
     private final GoogleMainPage googleSearchPage;
     private final GoogleResultPage googleResultPage;
-    private List<String> actualSuggestions;
 
     // No need to define the constructor now as we are using lombak -> @AllArgsConstructor during execution
-    public GoogleSearchSteps(GoogleMainPage googleSearchPage, GoogleResultPage googleResultPage) {
+    /*public GoogleSearchSteps(GoogleMainPage googleSearchPage, GoogleResultPage googleResultPage) {
         this.googleSearchPage = googleSearchPage;
         this.googleResultPage = googleResultPage;
-    }
+    }*/
 
     @When("^the user search for the item in google \"([^\"]*)\"$")
     public void the_user_search_for_the_item_in_google(String searchTerm)  {
         googleSearchPage.getSearchWidget().enter(searchTerm);
-        sleep(1000);
+        scenario.write("Search keyword entered - "+searchTerm);
     }
 
     @And("user click suggestion {string} from the list")
     public void userClickSuggestionFromTheList(String index) {
         int index1 = Integer.parseInt(index);
-        googleSearchPage.getSearchSuggestions().clickSuggestions(index1);
+        SearchSuggestions searchSuggestions = googleSearchPage.getSearchSuggestions();
+        assertThat(searchSuggestions.getSuggestedResults(5).isEmpty()).isFalse();
+        searchSuggestions.clickSuggestions(index1);
+        scenario.write(+index1+ " search suggestion clicked");
     }
 
     @Then("results stats should be displayed")
     public void resultsStatsShouldBeDisplayed() {
-        System.out.println(googleResultPage.getResultStat().getSearchStats());
+        scenario.write("Search Results stats for "+googleResultPage.getResultStat().getSearchStats());
+        assertThat(googleResultPage.getResultStat().getSearchStats())
+                .as("Verify Result Stats are displayed on Search")
+                .isNotBlank();
     }
-
-    /*@Then("search results should contain {string}")
-    public void relevant_search_results_should_be_displayed(String expected) {
-        assertThat(resultsPageActions.verifySearchResultTitles(expected))
-                .as("Matching Relevant search results are displayed or not")
-                .isEqualTo(true);
-    }
-
-
-    @When("the user enter and keyword and get suggestions for the item {string}")
-    public void theUserEnterAndKeywordAndGetSuggestionsForTheItem(String keyword) {
-        actualSuggestions = searchPageActions.getSuggestedResults(keyword);
-    }*/
-
 
 }

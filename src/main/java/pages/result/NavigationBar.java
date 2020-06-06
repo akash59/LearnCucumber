@@ -8,7 +8,7 @@ import pages.common.BasePage;
 
 public class NavigationBar extends BasePage {
 
-    private PageActions pageActions;
+    private final PageActions pageActions;
 
     public NavigationBar(Controller controller) {
         super(controller);

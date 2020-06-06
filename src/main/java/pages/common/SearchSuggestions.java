@@ -4,6 +4,7 @@ import core.controller.Controller;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import page_utils.PageActions;
 
 import java.util.List;
@@ -21,18 +22,17 @@ public class SearchSuggestions extends BasePage {
     @FindBy(how = How.XPATH, using=".//ul[@role='listbox']/li//span")
     private List<WebElement> suggestions;
 
-    @FindBy(how = How.XPATH, using=".//ul[@role='listbox']")
-    private WebElement suggestionsBox;
-
     public void clickSuggestions(int index) {
         pageActions.click(this.suggestions.get(index-1));
+        this.wait.until(d -> ExpectedConditions.invisibilityOfAllElements(suggestions));
     }
 
-    public List<String> getSuggestedResults() {
+    public List<String> getSuggestedResults(int limit) {
+        this.wait.until(d -> ExpectedConditions.visibilityOfAllElements(suggestions));
         return suggestions
                 .stream()
                 .map(element -> element.getText().trim())
-                .limit(6)
+                .limit(limit)
                 .collect(Collectors.toList());
     }
 
