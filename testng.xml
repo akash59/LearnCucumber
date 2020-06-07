@@ -4,15 +4,13 @@
 <suite name="Google Search Tests">
     <test name="Sanity Tests">
         <classes>
-            <class name="cukesrunner.SanityTestRunner" />
-            <!--<class name="cukesrunner.FailedTestRunner" />-->
+            <class name="testrunners.SanityTestRunner" />
         </classes>
     </test>
     <test name="Parallel Regression Tests" enabled="false">
         <parameter name="parallel" value="true" />
         <classes>
-            <class name="cukesrunner.RegressionParallelTestRunner" />
-            <class name="cukesrunner.FailedTestRunner" />
+            <class name="testrunners.RegressionParallelTestRunner" />
         </classes>
     </test>
 </suite>
