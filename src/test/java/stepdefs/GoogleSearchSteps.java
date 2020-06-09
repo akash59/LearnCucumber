@@ -19,15 +19,11 @@ public class GoogleSearchSteps extends BaseTest
     private final GoogleResultPage googleResultPage;
 
     // No need to define the constructor now as we are using lombak -> @AllArgsConstructor during execution
-    /*public GoogleSearchSteps(GoogleMainPage googleSearchPage, GoogleResultPage googleResultPage) {
-        this.googleSearchPage = googleSearchPage;
-        this.googleResultPage = googleResultPage;
-    }*/
 
     @When("^the user search for the item in google \"([^\"]*)\"$")
     public void the_user_search_for_the_item_in_google(String searchTerm)  {
         googleSearchPage.getSearchWidget().enter(searchTerm);
-        scenario.write("Search keyword entered - "+searchTerm);
+        scenario.get().write("Search keyword entered - "+searchTerm);
     }
 
     @And("user click suggestion {string} from the list")
@@ -35,13 +31,14 @@ public class GoogleSearchSteps extends BaseTest
         int index1 = Integer.parseInt(index);
         SearchSuggestions searchSuggestions = googleSearchPage.getSearchSuggestions();
         assertThat(searchSuggestions.getSuggestedResults(5).isEmpty()).isFalse();
+        scenario.get().write("clicking suggestion - "+searchSuggestions.getSuggestedResults(6).get(index1-1));
         searchSuggestions.clickSuggestions(index1);
-        scenario.write(+index1+ " search suggestion clicked");
+        scenario.get().write(+index1+ " search suggestion clicked");
     }
 
     @Then("results stats should be displayed")
     public void resultsStatsShouldBeDisplayed() {
-        scenario.write("Search Results stats for "+googleResultPage.getResultStat().getSearchStats());
+        scenario.get().write("Search Results stats for "+googleResultPage.getResultStat().getSearchStats());
         assertThat(googleResultPage.getResultStat().getSearchStats())
                 .as("Verify Result Stats are displayed on Search")
                 .isNotBlank();

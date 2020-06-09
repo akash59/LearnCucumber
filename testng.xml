@@ -7,10 +7,4 @@
             <class name="testrunners.SanityTestRunner" />
         </classes>
     </test>
-    <test name="Parallel Regression Tests" enabled="false">
-        <parameter name="parallel" value="true" />
-        <classes>
-            <class name="testrunners.RegressionParallelTestRunner" />
-        </classes>
-    </test>
 </suite>

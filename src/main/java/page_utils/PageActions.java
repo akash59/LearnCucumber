@@ -2,10 +2,12 @@ package page_utils;
 
 import core.controller.Controller;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Objects;
 
 public class PageActions {
 
@@ -49,7 +51,13 @@ public class PageActions {
         this.wait
                 .ignoring(StaleElementReferenceException.class)
                 .until(d -> ExpectedConditions.elementToBeClickable(element));
-        element.click();
+        try {
+            element.click();
+        }
+        catch (StaleElementReferenceException se) {
+            System.out.println("Stale element exception "+se.getMessage());
+            wait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(element)));
+        }
     }
 
     public boolean retryingFindClick(By by) {
@@ -103,6 +111,27 @@ public class PageActions {
 
     public void navigateTo(String s) {
         driver.navigate().to(s);
+    }
+
+    public boolean waitForJSandJQueryToLoad() {
+        // wait for jQuery to load
+        ExpectedCondition<Boolean> jQueryLoad = driver -> {
+            try {
+                return ((Long)((JavascriptExecutor) Objects.requireNonNull(driver))
+                        .executeScript("return jQuery.active") == 0);
+            }
+            catch (Exception e) {
+                // no jQuery present
+                return true;
+            }
+        };
+
+        // wait for Javascript to load
+        ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor) Objects.requireNonNull(driver))
+                .executeScript("return document.readyState")
+                .toString().equals("complete");
+
+        return this.wait.until(jQueryLoad) && this.wait.until(jsLoad);
     }
 
 }

@@ -31,7 +31,7 @@ public class TestSetup extends BaseTest {
 
     @Before
     public void init(Scenario scenario) {
-        BaseTest.scenario = scenario;
+        BaseTest.scenario.set(scenario);
         long id = Thread.currentThread().getId();
         scenario.write("Before scenario. Thread id is: " + id);
         scenario.write("launching browser...");

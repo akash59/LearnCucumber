@@ -11,7 +11,6 @@ public class GoogleMainPage {
 
     private final SearchWidget searchWidget;
     private final SearchSuggestions searchSuggestions;
-    //private final WebDriver driver;
     private final PageActions pageActions;
 
     public GoogleMainPage(Controller controller) {

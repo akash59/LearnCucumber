@@ -29,9 +29,9 @@ public class SearchWidget extends BasePage {
         pageActions.clearText(searchBox);
         for(char ch : keyword.toCharArray()) {
             pageActions.type(searchBox, ch+"");
-            Uninterruptibles.sleepUninterruptibly(120, TimeUnit.MILLISECONDS);
+            Uninterruptibles.sleepUninterruptibly(20, TimeUnit.MILLISECONDS);
+            this.wait.until(d -> pageActions.waitForJSandJQueryToLoad());
         }
-        Uninterruptibles.sleepUninterruptibly(120, TimeUnit.MILLISECONDS);
     }
 
     @Override

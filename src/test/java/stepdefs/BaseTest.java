@@ -4,7 +4,7 @@ import io.cucumber.java.Scenario;
 
 public class BaseTest {
 
-    protected static Scenario scenario;
+    protected static ThreadLocal<Scenario> scenario = new ThreadLocal<>();
 
 
 }
