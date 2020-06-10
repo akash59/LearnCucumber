@@ -23,7 +23,7 @@ jobs:
     - name: Run acceptance Tests
       run: mvn clean verify -X
     - name: Copy build artifacts
-      run: mkdir artifacts && cp target/cucumber-html-reports/*.* artifacts
+      run: mkdir artifacts && xcopy target\cucumber-html-reports\* artifacts /e
     - uses: actions/upload-artifact@v1
       with:
         name: Test Results
