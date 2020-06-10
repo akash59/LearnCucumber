@@ -13,10 +13,8 @@ public class PageActions {
 
     protected WebDriverWait wait;
     protected WebDriver driver;
-    protected Controller controller;
 
     public PageActions(Controller controller) {
-        this.controller = controller;
         this.driver = controller.getDriver();
         this.wait = getWait(30);
     }

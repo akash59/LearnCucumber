@@ -55,8 +55,8 @@ Feature: Verify Google Search feature
     Then results stats should be displayed
 
   @Sanity
-  Scenario:  Verify search suggestions on Google Home page for keyword "south africa"
-    When the user search for the item in google "south africa"
+  Scenario:  Verify search suggestions on Google Home page for keyword "lanka"
+    When the user search for the item in google "lanka"
     And user click suggestion "5" from the list
     Then results stats should be displayed
 
