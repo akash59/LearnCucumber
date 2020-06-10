@@ -21,7 +21,7 @@ jobs:
       with:
         java-version: 14
     - name: Run acceptance Tests
-      run: mvn clean test -X
+      run: mvn clean verify -X
     - name: Copy build artifacts
       run: mkdir artifacts && cp target/cucumber-html-reports artifacts
     - uses: actions/upload-artifact@v1
