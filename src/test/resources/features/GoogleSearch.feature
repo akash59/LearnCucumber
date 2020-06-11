@@ -63,6 +63,6 @@ Feature: Verify Google Search feature
   @Sanity
   Scenario:  Verify search suggestions on Google Home page for keyword "canada"
     When the user search for the item in google "canada"
-    And user click suggestion "9" from the list
+    And user click suggestion "6" from the list
     Then results stats should be displayed
 
