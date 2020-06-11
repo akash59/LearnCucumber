@@ -21,7 +21,7 @@ public class TestSetup extends BaseTest {
     private int counter = 1;
     private final Controller controller;
     private static final String APP_URL = "https://google.com";
-    private Map<String, String> ERROR_LOGS = new HashMap<>();
+    private final Map<String, String> ERROR_LOGS = new HashMap<>();
     private DevTools devTools;
 
     public TestSetup(Controller controller) {

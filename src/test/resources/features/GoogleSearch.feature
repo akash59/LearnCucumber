@@ -65,4 +65,3 @@ Feature: Verify Google Search feature
     When the user search for the item in google "canada"
     And user click suggestion "6" from the list
     Then results stats should be displayed
-
