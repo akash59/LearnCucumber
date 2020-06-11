@@ -65,3 +65,9 @@ Feature: Verify Google Search feature
     When the user search for the item in google "canada"
     And user click suggestion "6" from the list
     Then results stats should be displayed
+
+  @Sanity
+  Scenario:  Verify search suggestions on Google Home page for keyword "canada"
+    When the user search for the item in google "england"
+    And user click suggestion "4" from the list
+    Then results stats should be displayed

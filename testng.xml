@@ -4,7 +4,7 @@
 <suite name="Google Search Tests">
     <test name="Sanity Tests">
         <classes>
-            <class name="testrunners.ParallelTestSuiteRunner"/>
+            <class name="testrunners.SanityTestRunner" />
         </classes>
     </test>
 </suite>
