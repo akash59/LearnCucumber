@@ -4,7 +4,8 @@ public enum DriverType {
 
     CHROME,
     FIREFOX,
-    IE;
+    IE,
+    REMOTE;
 
     public static DriverType getType() {
         String browser = System.getProperty("browser", "CHROME");
