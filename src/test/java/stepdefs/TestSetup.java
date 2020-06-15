@@ -5,12 +5,6 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.devtools.Console;
-import org.openqa.selenium.devtools.DevTools;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class TestSetup extends BaseTest {
 
@@ -53,11 +47,11 @@ public class TestSetup extends BaseTest {
     @After(order = 0)
     public void tear_down(Scenario scenario) {
 
-        if(scenario.isFailed()) {
+        if(scenario.isFailed() && driver != null) {
             Cookie cookie = new Cookie("zaleniumTestPassed", "false");
             driver.manage().addCookie(cookie);
         }
-        else {
+        else if (driver != null) {
             Cookie cookie = new Cookie("zaleniumTestPassed", "true");
             driver.manage().addCookie(cookie);
         }
@@ -65,7 +59,7 @@ public class TestSetup extends BaseTest {
         long id = Thread.currentThread().getId();
         scenario.write("After scenario. Thread id is: " + id);
         scenario.write("shutting down browser");
-        controller.teardownController();
+        controller.tearDownController();
         //devTools.send(disable());
     }
 

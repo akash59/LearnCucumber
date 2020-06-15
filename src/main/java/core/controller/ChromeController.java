@@ -13,8 +13,6 @@ import java.net.URL;
 public class ChromeController implements Controller {
 
     private ThreadLocal<WebDriver> driver;
-    private String complete_url;
-    private String host = "localhost";
 
     @Override
     public WebDriver getDriver() {
@@ -26,22 +24,9 @@ public class ChromeController implements Controller {
 
     @Override
     public void setupController() {
-
-        if(System.getenv("HUB_HOST") != null) {
-            host = System.getenv("HUB_HOST");
-        }
-
-        WebDriverManager.chromedriver().setup();
         this.driver = new ThreadLocal<>();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--start-maximized");
-        try {
-            complete_url = "http://"+ host +":4444/wd/hub";
-            driver.set(new RemoteWebDriver(new URL(complete_url), chromeOptions));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        //driver.set(new ChromeDriver());
+        String remote_execution = System.getProperty("REMOTE_EXEC", "N");
+        new ChromeSetup().setupChrome(remote_execution, driver);
     }
 
     @Override

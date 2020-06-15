@@ -3,9 +3,7 @@ package core.controller;
 public enum DriverType {
 
     CHROME,
-    FIREFOX,
-    IE,
-    REMOTE;
+    FIREFOX;
 
     public static DriverType getType() {
         String browser = System.getProperty("browser", "CHROME");

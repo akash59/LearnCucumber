@@ -10,7 +10,7 @@ public interface Controller {
 
     void setDriver(ThreadLocal<WebDriver> driver);
 
-    default void teardownController() {
+    default void tearDownController() {
         if (getDriver() != null) {
             getDriver().quit();
             setDriver(null);

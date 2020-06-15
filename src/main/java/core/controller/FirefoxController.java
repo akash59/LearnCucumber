@@ -14,8 +14,6 @@ import java.net.URL;
 public class FirefoxController implements Controller {
 
     private ThreadLocal<WebDriver> driver;
-    String host = "localhost";
-    String complete_url;
 
     @Override
     public WebDriver getDriver() {
@@ -32,21 +30,10 @@ public class FirefoxController implements Controller {
 
     @Override
     public void setupController() {
-        WebDriverManager.firefoxdriver().setup();
         this.driver = new ThreadLocal<>();
-
-        if(System.getenv("HUB_HOST") != null) {
-            host = System.getenv("HUB_HOST");
-        }
-
-        FirefoxOptions firefoxOptions = new FirefoxOptions();
-        try {
-            complete_url = "http://"+ host +":4444/wd/hub";
-            driver.set(new RemoteWebDriver(new URL(complete_url), firefoxOptions));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        String remote_execution = System.getProperty("REMOTE_EXEC", "N");
+        new FirefoxSetup().setupFirefox(remote_execution, driver);
     }
 
-    //driver.set(new FirefoxDriver());
+
 }
