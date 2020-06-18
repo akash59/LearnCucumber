@@ -24,7 +24,7 @@ public class FirefoxSetup {
     public void setupFirefox(String remoteExecution, ThreadLocal<WebDriver> driver) {
 
         if(remoteExecution != null && remoteExecution.equalsIgnoreCase("Y")) {
-            if(System.getenv("HUB_HOST") != null)
+            if(System.getProperty("HUB_HOST") != null)
             {
                 host = System.getProperty("HUB_HOST");
             }

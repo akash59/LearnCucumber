@@ -2,9 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Google Search Tests">
-    <test name="Sanity Tests">
+    <test name="Functional Tests">
         <classes>
-            <class name="testrunners.SanityTestRunner" />
+            <class name="testrunners.TestRunner" />
         </classes>
     </test>
 </suite>

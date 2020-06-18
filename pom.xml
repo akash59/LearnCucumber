@@ -15,79 +15,6 @@
         <maven.build.timestamp.format>yyyy_MM_dd_HH_mm</maven.build.timestamp.format>
     </properties>
 
-   <!-- <repositories>
-        <repository>
-            <id>jcenter</id>
-            <url>https://jcenter.bintray.com/</url>
-        </repository>
-    </repositories>-->
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
-                <configuration>
-                    <suiteXmlFiles>
-                        <!-- TestNG suite XML files -->
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
-                    <testFailureIgnore>true</testFailureIgnore>
-                    <properties>
-                        <property>
-                            <name>dataproviderthreadcount</name>
-                            <value>10</value>
-                        </property>
-                    </properties>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>net.masterthought</groupId>
-                <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.0.0</version>
-                <executions>
-                    <execution>
-                        <id>execution</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <projectName>LearnCucumber</projectName>
-                            <!-- optional, per documentation set this to "true" to bypass generation of Cucumber Reports entirely, defaults to false if not specified -->
-                            <skip>false</skip>
-                            <!-- output directory for the generated report -->
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <!-- optional, defaults to outputDirectory if not specified -->
-                            <inputDirectory>${project.build.directory}</inputDirectory>
-                            <jsonFiles>
-                                <!-- supports wildcard or name pattern -->
-                                <param>**/*.json</param>
-                            </jsonFiles>
-<!--                            <parallelTesting>false</parallelTesting>-->
-                            <!-- optional, set true to group features by its Ids -->
-                            <mergeFeaturesById>false</mergeFeaturesById>
-                            <!-- optional, set true to get a final report with latest results of the same test from different test runs -->
-                            <mergeFeaturesWithRetest>false</mergeFeaturesWithRetest>
-                            <!-- optional, set true to fail build on test failures -->
-                            <checkBuildResult>false</checkBuildResult>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <release>8</release>
-                </configuration>
-
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
@@ -97,14 +24,6 @@
             <version>5.6.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-        <!--<dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
-        </dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -161,6 +80,107 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <finalName>cucumber-selenium-docker</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <compilerVersion>1.8</compilerVersion>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <testSource>1.8</testSource>
+                    <testTarget>1.8</testTarget>
+                    <release>8</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/libs
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <!-- TestNG suite XML files -->
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <properties>
+                        <property>
+                            <name>dataproviderthreadcount</name>
+                            <value>10</value>
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>5.0.0</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>LearnCucumber</projectName>
+                            <!-- optional, per documentation set this to "true" to bypass generation of Cucumber Reports entirely, defaults to false if not specified -->
+                            <skip>false</skip>
+                            <!-- output directory for the generated report -->
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <!-- optional, defaults to outputDirectory if not specified -->
+                            <inputDirectory>${project.build.directory}</inputDirectory>
+                            <jsonFiles>
+                                <!-- supports wildcard or name pattern -->
+                                <param>**/*.json</param>
+                            </jsonFiles>
+                            <!--                            <parallelTesting>false</parallelTesting>-->
+                            <!-- optional, set true to group features by its Ids -->
+                            <mergeFeaturesById>false</mergeFeaturesById>
+                            <!-- optional, set true to get a final report with latest results of the same test from different test runs -->
+                            <mergeFeaturesWithRetest>false</mergeFeaturesWithRetest>
+                            <!-- optional, set true to fail build on test failures -->
+                            <checkBuildResult>false</checkBuildResult>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

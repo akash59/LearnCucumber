@@ -17,7 +17,8 @@ public class CustomPicoFactory implements ObjectFactory {
                 addClass(ChromeController.class);
                 break;
             default: // if no device is specified, use firefox
-                throw new RuntimeException("Unsupported browser type");
+                System.out.println("No browser specified, using firefox for execution");
+                addClass(FirefoxController.class);
         }
     }
 

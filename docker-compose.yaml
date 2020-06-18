@@ -1,0 +1,41 @@
+version: "3"
+services:
+  hub:
+    image: selenium/hub:3.14
+    ports:
+      - "4444:4444"
+  chrome:
+    image: selenium/node-chrome:3.14
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+  firefox:
+    image: selenium/node-firefox:3.14
+    shm_size: '1gb'
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+  google-search-chrome:
+    image: akshdocker/cucumber-selenium-docker
+    depends_on:
+      - chrome
+    environment:
+      - HUB_HOST=hub
+      - BROWSER=CHROME
+      - cucumber.features=classpath:features
+      - cucumber.filter.tags=@Chrome
+    volumes:
+      - ./chrome-results:/usr/share/udemy/target
+  google-search-firefox:
+      image: akshdocker/cucumber-selenium-docker
+      depends_on:
+        - firefox
+      environment:
+        - HUB_HOST=hub
+        - BROWSER=FIREFOX
+        - cucumber.features=classpath:features
+        - cucumber.filter.tags=@Firefox
+      volumes:
+        - ./firefox-results:/usr/share/udemy/target

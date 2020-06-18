@@ -25,8 +25,6 @@ public class TestSetup extends BaseTest {
         scenario.write("launching browser...");
         driver = controller.getDriver();
         String testName = scenario.getName();
-        //driver.manage().window().maximize();
-
         openTestApplication();
     }
 

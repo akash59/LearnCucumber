@@ -2,3 +2,6 @@
 /target
 *.iml
 debug.log
+/output/
+/chrome-results/
+/firefox-results/

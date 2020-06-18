@@ -13,15 +13,15 @@ import org.testng.annotations.DataProvider;
         glue = { "stepdefs", "testbase" },
         monochrome = true,
         plugin = { "pretty",
-                "html:target",
-                "json:target/cucumber.json",
+                "html:target/cucumber-reports",
+                "json:target/cucumber-reports/cucumber.json",
                 "logging.CustomTagsFormatter:target/tags.txt"
         },
         tags = { "(@Sanity or @Regression)"},
         strict = true
 )
 
-public class SanityTestRunner extends AbstractTestNGCucumberTests {
+public class TestRunner extends AbstractTestNGCucumberTests {
 
 
     @BeforeSuite

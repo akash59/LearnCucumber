@@ -31,7 +31,7 @@ public class FirefoxController implements Controller {
     @Override
     public void setupController() {
         this.driver = new ThreadLocal<>();
-        String remote_execution = System.getProperty("REMOTE_EXEC", "N");
+        String remote_execution = System.getProperty("REMOTE_EXEC", "Y");
         new FirefoxSetup().setupFirefox(remote_execution, driver);
     }
 
