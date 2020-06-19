@@ -1,7 +1,6 @@
 package core.controller;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.checkerframework.checker.index.qual.PolyUpperBound;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
