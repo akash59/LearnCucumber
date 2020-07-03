@@ -7,6 +7,12 @@ Feature: Verify Google Search feature
     Then results stats should be displayed
 
   @Sanity @Chrome
+  Scenario:  Verify search suggestions on Google Home page for keyword "scotland"
+    When the user search for the item in google "scotland"
+    And user click suggestion "3" from the list
+    Then results stats should be displayed
+
+  @Sanity @Chrome
   Scenario:  Verify search suggestions on Google Home page for keyword "japan"
     When the user search for the item in google "japan"
     And user click suggestion "2" from the list
