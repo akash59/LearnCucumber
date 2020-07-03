@@ -18,7 +18,7 @@ services:
     environment:
       - HUB_HOST=hub
   google-search-chrome:
-    image: akshdocker/cucumber-selenium-docker
+    image: akash59/cucumber-selenium-docker
     depends_on:
       - chrome
     environment:
@@ -29,7 +29,7 @@ services:
     volumes:
       - ./chrome-results:/usr/share/udemy/target
   google-search-firefox:
-      image: akshdocker/cucumber-selenium-docker
+      image: akash59/cucumber-selenium-docker
       depends_on:
         - firefox
       environment:
