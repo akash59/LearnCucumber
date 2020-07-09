@@ -12,6 +12,7 @@ public class TestSetup extends BaseTest {
     private int counter = 1;
     private final Controller controller;
     private static final String APP_URL = "https://google.com";
+
     public TestSetup(Controller controller) {
         this.controller = controller;
     }

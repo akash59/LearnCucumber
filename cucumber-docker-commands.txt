@@ -1,0 +1,23 @@
+############################################################################################################
+                                 RUN CUCUMBER TEST VIA TESTNG XML FILE
+############################################################################################################
+
+java -Dbrowser=FIREFOX -cp "target/cucumber-selenium-docker.jar;target/cucumber-selenium-docker-tests.jar;target/libs/*" org.testng.TestNG testng.xml
+
+############################################################################################################
+                        RUN CUCUMBER TEST VIA CUCUMBER RUNNER - SAME CAN BE USED FOR DOCKER
+############################################################################################################
+
+java -Dbrowser=FIREFOX -cp "cucumber-selenium-docker.jar;cucumber-selenium-docker-tests.jar;libs/*" -Dcucumber.features="classpath:features" org.testng.TestNG -testclass testrunners.SanityTestRunner
+
+
+
+docker run -p 8080:8080 -p 50000:50000 -v "c:/users/akash1/docker-akash/jenkins:/var/jenkins_home" jenkins/jenkins:lts
+
+
+
+############################################################################################################
+                        RUN CUCUMBER TEST VIA CLI - SAME CAN BE USED FOR DOCKER
+############################################################################################################
+
+java -DBROWSER=FIREFOX -cp "target/cucumber-selenium-docker.jar;target/cucumber-selenium-docker-tests.jar;target/libs/*" io.cucumber.core.cli.Main "classpath:features" --glue stepdefs --tags "@Sanity" --threads 2
