@@ -17,6 +17,8 @@ public class FirefoxSetup {
     public FirefoxOptions getFirefoxOptions() {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.addArguments("--start-maximized");
+        firefoxOptions.setCapability("enableVNC", true);
+        firefoxOptions.setCapability("screenResolution", "1920x1080x24");
         return firefoxOptions;
     }
 

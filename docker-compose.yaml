@@ -25,7 +25,7 @@ services:
       - HUB_HOST=hub
       - BROWSER=CHROME
       - cucumber.features=classpath:features
-      - cucumber.filter.tags=@Chrome
+      - cucumber.filter.tags=@Sanity
     volumes:
       - ./chrome-results:/usr/share/udemy/target
   google-search-firefox:
@@ -36,6 +36,6 @@ services:
         - HUB_HOST=hub
         - BROWSER=FIREFOX
         - cucumber.features=classpath:features
-        - cucumber.filter.tags=@Firefox
+        - cucumber.filter.tags=@Regression
       volumes:
         - ./firefox-results:/usr/share/udemy/target

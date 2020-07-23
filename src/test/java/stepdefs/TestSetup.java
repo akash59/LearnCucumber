@@ -25,6 +25,7 @@ public class TestSetup extends BaseTest {
         scenario.write("Before scenario. Thread id is: " + id);
         scenario.write("launching browser...");
         driver = controller.getDriver();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         String testName = scenario.getName();
         openTestApplication();
     }

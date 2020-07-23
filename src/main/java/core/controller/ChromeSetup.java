@@ -18,6 +18,7 @@ public class ChromeSetup {
     public ChromeOptions getChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--start-maximized");
+        chromeOptions.setCapability("enableVNC", true);
         return chromeOptions;
     }
 
