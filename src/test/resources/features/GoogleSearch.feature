@@ -37,9 +37,9 @@ Feature: Verify Google Search feature
     Then results stats should be displayed
 
   @Regression
-  Scenario:  Verify search suggestions on Google Home page for keyword "himachal pradesh"
-    When the user search for the item in google "himachal pradesh"
-    And user click suggestion "6" from the list
+  Scenario:  Verify search suggestions on Google Home page for keyword "himachal"
+    When the user search for the item in google "himachal"
+    And user click suggestion "2" from the list
     Then results stats should be displayed
 
   @Regression
@@ -55,13 +55,13 @@ Feature: Verify Google Search feature
     Then results stats should be displayed
 
   @Regression
-  Scenario:  Verify search suggestions on Google Home page for keyword "russia"
-    When the user search for the item in google "russia"
+  Scenario:  Verify search suggestions on Google Home page for keyword "norway"
+    When the user search for the item in google "norway"
     And user click suggestion "4" from the list
     Then results stats should be displayed
 
   @Sanity
   Scenario:  Verify search suggestions on Google Home page for keyword "lanka"
     When the user search for the item in google "lanka"
-    And user click suggestion "5" from the list
+    And user click suggestion "3" from the list
     Then results stats should be displayed

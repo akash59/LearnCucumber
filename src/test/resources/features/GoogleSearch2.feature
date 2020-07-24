@@ -7,7 +7,7 @@ Feature: Verify Google Search feature with new test cases
     Then results stats should be displayed
 
   @Regression
-  Scenario:  Verify search suggestions on Google Home page for keyword "jenkins"
-    When the user search for the item in google "jenkins"
+  Scenario:  Verify search suggestions on Google Home page for keyword "selenoid"
+    When the user search for the item in google "selenoid"
     And user click suggestion "2" from the list
     Then results stats should be displayed

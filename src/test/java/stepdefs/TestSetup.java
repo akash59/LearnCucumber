@@ -5,6 +5,8 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestSetup extends BaseTest {
 
@@ -23,8 +25,19 @@ public class TestSetup extends BaseTest {
         BaseTest.scenario.set(scenario);
         long id = Thread.currentThread().getId();
         scenario.write("Before scenario. Thread id is: " + id);
-        scenario.write("launching browser...");
         driver = controller.getDriver();
+
+        if (driver instanceof ChromeDriver) {
+            scenario.write("launching chrome browser...");
+        }
+
+        else if (driver instanceof FirefoxDriver) {
+            scenario.write("launching firefox browser...");
+        }
+        else {
+            scenario.write("currently unsupported browser...");
+        }
+
         driver.manage().window().setSize(new Dimension(1920, 1080));
         String testName = scenario.getName();
         openTestApplication();
