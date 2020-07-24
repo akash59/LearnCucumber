@@ -22,7 +22,7 @@ services:
       - "8080:8080"
     command: ["--selenoid-uri", "http://selenoid:4444"]
   google-search-chrome:
-    image: akash59/cucumber-selenium-docker
+    image: akash59/cucumber-selenium-docker-selenoid
     network_mode: bridge
     links:
       - selenoid
@@ -34,7 +34,7 @@ services:
     volumes:
       - ./chrome-results:/usr/share/udemy/target
   google-search-firefox:
-    image: akash59/cucumber-selenium-docker
+    image: akash59/cucumber-selenium-docker-selenoid
     network_mode: bridge
     links:
       - selenoid
