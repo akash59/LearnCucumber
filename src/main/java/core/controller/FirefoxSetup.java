@@ -13,12 +13,19 @@ public class FirefoxSetup {
 
     String host = "localhost";
     String complete_url;
+    static int counter = 0;
 
     public FirefoxOptions getFirefoxOptions() {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.addArguments("--start-maximized");
         firefoxOptions.setCapability("enableVNC", true);
         firefoxOptions.setCapability("screenResolution", "1920x1080x24");
+        firefoxOptions.setCapability("enableVideo", true);
+        firefoxOptions.setCapability("enableLog", true);
+        int count = counter++;
+        firefoxOptions.setCapability("name", "test_"+ count);
+        firefoxOptions.setCapability("videoName", "test_"+ count+".mp4");
+        firefoxOptions.setCapability("logName", "selenoid-execution_"+ count +".log");
         return firefoxOptions;
     }
 

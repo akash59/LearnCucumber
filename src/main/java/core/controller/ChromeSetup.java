@@ -14,11 +14,19 @@ public class ChromeSetup {
 
     String host = "localhost";
     String complete_url;
+    static int counter = 0;
 
     public ChromeOptions getChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--start-maximized");
         chromeOptions.setCapability("enableVNC", true);
+        chromeOptions.setCapability("screenResolution", "1920x1080x24");
+        chromeOptions.setCapability("enableVideo", true);
+        chromeOptions.setCapability("enableLog", true);
+        int count = counter++;
+        chromeOptions.setCapability("name", "test_"+ count);
+        chromeOptions.setCapability("videoName", "test_"+ count+".mp4");
+        chromeOptions.setCapability("logName", "selenoid-execution_"+ count +".log");
         return chromeOptions;
     }
 

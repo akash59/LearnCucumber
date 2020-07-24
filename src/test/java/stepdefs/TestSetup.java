@@ -46,21 +46,10 @@ public class TestSetup extends BaseTest {
 
     @After(order = 0)
     public void tear_down(Scenario scenario) {
-
-        if(scenario.isFailed() && driver != null) {
-            Cookie cookie = new Cookie("zaleniumTestPassed", "false");
-            driver.manage().addCookie(cookie);
-        }
-        else if (driver != null) {
-            Cookie cookie = new Cookie("zaleniumTestPassed", "true");
-            driver.manage().addCookie(cookie);
-        }
-
         long id = Thread.currentThread().getId();
         scenario.write("After scenario. Thread id is: " + id);
         scenario.write("shutting down browser");
         controller.tearDownController();
-        //devTools.send(disable());
     }
 
     private void openTestApplication() {

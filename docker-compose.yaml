@@ -1,41 +1,47 @@
-version: "3"
+version: '3'
 services:
-  hub:
-    image: selenium/hub:3.14
+  selenoid:
+    image: aerokube/selenoid:latest-release
+    network_mode: bridge
     ports:
       - "4444:4444"
-  chrome:
-    image: selenium/node-chrome:3.14
-    depends_on:
-      - hub
+    volumes:
+      - "$PWD:/etc/selenoid/:ro" # assumed current dir contains browsers.json
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "$PWD/selenoid/logs/:/opt/selenoid/logs/"
+      - "$PWD/selenoid/video/:/opt/selenoid/video/"
     environment:
-      - HUB_HOST=hub
-  firefox:
-    image: selenium/node-firefox:3.14
-    shm_size: '1gb'
-    depends_on:
-      - hub
-    environment:
-      - HUB_HOST=hub
+      - OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/selenoid/video/
+    command: ["-conf", "/etc/selenoid/browsers.json", "-video-output-dir", "/opt/selenoid/video", "-log-output-dir", "/opt/selenoid/logs"]
+  selenoid-ui:
+    image: aerokube/selenoid-ui
+    network_mode: bridge
+    links:
+      - selenoid
+    ports:
+      - "8080:8080"
+    command: ["--selenoid-uri", "http://selenoid:4444"]
   google-search-chrome:
     image: akash59/cucumber-selenium-docker
-    depends_on:
-      - chrome
+    network_mode: bridge
+    links:
+      - selenoid
     environment:
-      - HUB_HOST=hub
+      - HUB_HOST=selenoid
       - BROWSER=CHROME
       - cucumber.features=classpath:features
       - cucumber.filter.tags=@Sanity
     volumes:
       - ./chrome-results:/usr/share/udemy/target
   google-search-firefox:
-      image: akash59/cucumber-selenium-docker
-      depends_on:
-        - firefox
-      environment:
-        - HUB_HOST=hub
-        - BROWSER=FIREFOX
-        - cucumber.features=classpath:features
-        - cucumber.filter.tags=@Regression
-      volumes:
-        - ./firefox-results:/usr/share/udemy/target
+    image: akash59/cucumber-selenium-docker
+    network_mode: bridge
+    links:
+      - selenoid
+    environment:
+      - HUB_HOST=selenoid
+      - BROWSER=FIREFOX
+      - cucumber.features=classpath:features
+      - cucumber.filter.tags=@Regression
+    volumes:
+      - ./firefox-results:/usr/share/udemy/target
