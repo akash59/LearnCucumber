@@ -7,6 +7,7 @@ import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class TestSetup extends BaseTest {
 
@@ -26,13 +27,15 @@ public class TestSetup extends BaseTest {
         long id = Thread.currentThread().getId();
         scenario.write("Before scenario. Thread id is: " + id);
         driver = controller.getDriver();
+        System.out.println(driver.toString());
+        Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
 
-        if (driver instanceof ChromeDriver) {
-            scenario.write("launching chrome browser...");
+        if (driver.toString().contains("chrome")) {
+            scenario.write("launching chrome browser { version -> "+caps.getVersion()+" }");
         }
 
-        else if (driver instanceof FirefoxDriver) {
-            scenario.write("launching firefox browser...");
+        else if (driver.toString().contains("firefox")) {
+            scenario.write("launching firefox browser { version -> "+caps.getVersion()+" }");
         }
         else {
             scenario.write("currently unsupported browser...");
