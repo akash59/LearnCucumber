@@ -1,0 +1,20 @@
+############### Add browser.json files under selenoid/config folder ################################
+############### Make sure those browsers images are pulled          ################################
+
+docker run -d                                           \
+--name selenoid-new                                     \
+-p 4444:4444                                            \
+-v /var/run/docker.sock:/var/run/docker.sock            \
+-v `pwd`/selenoid/config/:/etc/selenoid/:ro             \
+-v $PWD/selenoid/logs/:/opt/selenoid/logs/              \
+-v $PWD/selenoid/video/:/opt/selenoid/video/            \
+-e OVERRIDE_VIDEO_OUTPUT_DIR=$PWD/selenoid/video/       \
+aerokube/selenoid:latest-release -log-output-dir /opt/selenoid/logs
+
+
+
+############### To start Selenoid Manually ####################
+go to cm directory
+-> ./cm selenoid stop
+-> ./cm selenoid-ui stop
+
